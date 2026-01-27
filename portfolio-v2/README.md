@@ -1,36 +1,16 @@
-# Kim Julius Sale - Portfolio
+# React + Vite
 
-A personal portfolio website showcasing my software development projects and skills. This repository contains the modern React rebuild (V2) and archives the original legacy site (V1).
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-[**View Live Site**](https://rphoenix10.github.io)
+Currently, two official plugins are available:
 
-## Tech Stack (V2)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-* **Frontend:** React (v19), JSX, JavaScript
-* **Build Tool:** Vite
-* **Styling:** Modern CSS3, CSS Modules, Responsive Design
+## React Compiler
 
-## 📂 Project Structure
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-* **`portfolio-v2` (Active):** The current site built with **React, Vite, and Modern CSS**.
-* **`portfolio-v1_backup_2026` (Archived):** The legacy HTML/CSS version.
+## Expanding the ESLint configuration
 
-## ⚡ Quick Start (V2)
-
-To run the active project locally:
-
-```bash
-# 1. Clone and enter the V2 folder
-git clone https://github.com/rPhoenix10/rphoenix10.github.io.git
-cd rphoenix10.github.io/portfolio-v2
-
-# 2. Install dependencies
-npm install
-
-# 3. Start development server
-npm run dev
-```
-
-## License
-
-Open source under the [MIT License](LICENSE).
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
