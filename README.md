@@ -2,7 +2,7 @@
 
 A personal portfolio website showcasing my software development projects and skills. This repository contains the modern React rebuild (V2) and archives the original legacy site (V1).
 
-[**View Live Site**](https://kjsale.io)
+[**View Live Site**](https://rphoenix10.github.io/ako.si.julius)
 
 ## Tech Stack (V2)
 
@@ -21,7 +21,7 @@ To run the active project locally:
 
 ```bash
 # 1. Clone and enter the V2 folder
-git clone https://github.com/rPhoenix10/kjsale.io.git
+git clone https://github.com/rPhoenix10/ako.si.julius.git
 cd rphoenix10.github.io/portfolio-v2
 
 # 2. Install dependencies
@@ -29,8 +29,3 @@ npm install
 
 # 3. Start development server
 npm run dev
-```
-
-## License
-
-Open source under the [MIT License](LICENSE).

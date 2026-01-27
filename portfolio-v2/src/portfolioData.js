@@ -85,7 +85,7 @@ export const projects = [
         projectsImg,
         contactImg,
     ],
-    repoUrl: "https://github.com/rPhoenix10/rphoenix10.github.io"
+    repoUrl: "https://rphoenix10.github.io/ako.si.julius",
   },
   {
     id: 3,

@@ -16,7 +16,7 @@ const Me = ({ onButtonClick }) => {
       if (i < fullSaleName.length) {
         setNameText(fullSaleName.substring(0, i + 1));
         i++;
-        setTimeout(typeName, 50);
+        setTimeout(typeName, 45);
       } else {
         setTypingStep('tagline');
       }
@@ -27,7 +27,7 @@ const Me = ({ onButtonClick }) => {
         if (j < fullTagline.length) {
             setTaglineText(fullTagline.substring(0, j + 1));
             j++;
-            setTimeout(typeTagline, 50);
+            setTimeout(typeTagline, 35);
         } else {
             setTypingStep('done');
         }
