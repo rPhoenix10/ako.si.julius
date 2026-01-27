@@ -1,0 +1,54 @@
+#three {
+    background-color: #fff;
+    height: auto;
+}
+
+html {
+  scroll-padding-top: 4em;
+}
+
+input[type="text"],
+input[type="email"],
+
+textarea {
+    width: 100%;
+    padding: 1em;
+    border: solid 2px var(--border-color);
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    margin-bottom: 1em;
+    background-color: var(--bg-color);
+}
+
+.form-status {
+    margin-top: 1em;
+    font-weight: 700;
+    text-align: center;
+}
+
+#three .actions {
+    text-align: right;
+    margin-top: 1em;
+    margin-bottom: 4em;
+}
+
+.invalid-input {
+  border-color: #e74c3c !important;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.success-message {
+  color: #2ecc71;
+  font-size: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  text-align: center;
+}

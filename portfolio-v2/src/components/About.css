@@ -1,0 +1,209 @@
+#one {
+    background-color: #fff;
+    padding: 4em 0 0;;
+}
+
+.spotlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 3em;
+    transition: gap 0.5s ease-in-out;
+}
+
+.collapsible-wrapper {
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: max-width 0.5s ease-in-out;
+}
+
+.spotlight.gallery-expanded {
+    gap: 0;
+}
+
+.spotlight.gallery-expanded .image-gallery {
+    flex-basis: 100%;
+}
+
+.image-gallery {
+    flex-basis: 50%;
+    position: relative;
+    transition: flex-basis 0.5s ease-in-out;
+}
+
+.thumbnail {
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 3px solid transparent;
+    transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.actions {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.spotlight .major {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.collapse-toggle-icon {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    z-index: 4;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.collapse-toggle-icon:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.main-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.main-image img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0.1em 0.25em 0 rgba(0,0,0,0.075);
+    display: block;
+}
+
+@keyframes progressBar {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.slideshow-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: var(--text-color);
+    animation: progressBar 3s linear;
+}
+
+.main-image:hover .slideshow-progress {
+    animation-play-state: paused;
+}
+
+.thumbnails {
+    position: absolute;
+    bottom: 1px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.5em;
+    box-sizing: border-box;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.thumbnails.controls-visible {
+    opacity: 1;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail:hover {
+    transform: scale(1.3);
+}
+
+.thumbnail.active {
+    border-color: var(--light-color);
+    transform: scale(1.1);
+}
+
+.autoplay-toggle {
+    position: absolute;
+    top: .8em;
+    left: 1.5em;
+    transform: translateX(-50%);
+    z-index: 3;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.3em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.thumbnails.controls-visible ~ .autoplay-toggle {
+    opacity: 1;
+}
+
+.autoplay-toggle:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.autoplay-toggle.active {
+    color: var(--primary-color);
+}
+
+@media screen and (max-width: 768px) {
+    .spotlight {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .collapsible-wrapper {
+        transition: max-height 0.5s ease-in-out;
+        max-width: 100% !important; 
+    }
+
+    .image-gallery, .content-container {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .collapsible-content {
+        width: 100%;
+    }
+
+    .spotlight .major {
+        flex-direction: column;
+        gap: 1em;
+        text-align: center;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 45px;
+    }
+}

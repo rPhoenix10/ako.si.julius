@@ -1,0 +1,172 @@
+#two {
+    background-color: var(--bg-color);
+    padding: 3em 0 5em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#two .major {
+    margin-bottom: -1em;
+}
+
+.card-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    background-color: #fff;
+    outline: 1px solid rgba(0, 0, 0, 0.15);
+    outline-offset: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    animation: contentFadeIn 0.5s ease-in-out;
+}
+
+.card-header {
+    object-fit: cover;
+    width: 100%;
+    min-height: 200px;
+    border-bottom: rgb(15, 63, 134) 4px solid;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+    z-index: 1;
+    
+}
+
+.image-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    background-color: transparent; 
+    width: 100%;
+    
+}
+
+.nav-thumbnail {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-thumbnail:hover {
+    opacity: 1;
+}
+
+.nav-thumbnail.active {
+    border-color: var(--primary-color);
+    opacity: 1;
+}
+
+.card-body {
+    flex-grow: 1;
+    background-color: black;
+    background-size: cover;
+    padding: 0 2rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    color: #444;
+}
+
+.card-body h2 {
+    color: rgb(134, 72, 15);
+    font-size: 1.5rem;
+    margin: 2em 0 1rem 0;
+}
+
+.card-body p {
+    color: green;
+    margin: 0 0 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.github-link .fa-github {
+    margin-bottom: 2em;
+    font-size: 2.5rem;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.github-link:hover .fa-github {
+    color: var(--light-color);
+    transform: scale(1.1);
+}
+
+.card-buttons {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.card-buttons > button {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: rgb(15, 63, 134);
+    transition: color 150ms ease-in-out;
+    padding: 0.5rem;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.card-buttons > button:hover {
+    color: yellow;
+}
+
+.button {
+    margin-left: 1em;
+}
+
+@keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    #two {
+        padding: 2em 1em;
+    }
+
+    .slider-arrow {
+        font-size: 2em;
+    }
+
+    .carousel-arrow {
+        font-size: 1.5em;
+    }
+
+    .features-slider {
+        gap: 0.5em;
+    }
+}
