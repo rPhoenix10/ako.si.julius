@@ -23,6 +23,10 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./portfolio-v2
+        run: npm install
+
+      - name: Build
+        working-directory: ./portfolio-v2
         run: npm run build
 
       - name: Upload artifact
