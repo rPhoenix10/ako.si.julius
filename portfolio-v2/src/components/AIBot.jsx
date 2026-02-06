@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AIBot.css'; // We'll create this CSS next
+import './AIBot.css';
 
 const AIBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,15 +12,15 @@ const AIBot = () => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    // 1. Add User Message
+    // User Message
     const userMessage = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      // 2. Send to our new Backend
-      const response = await fetch('/api/chat', {
+      // Send to Backend
+      const response = await fetch('https://portfolio-project.261509jz79gj.us-south.codeengine.appdomain.cloud/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input }),
@@ -28,7 +28,7 @@ const AIBot = () => {
 
       const data = await response.json();
 
-      // 3. Add AI Response
+      // AI Response
       setMessages(prev => [...prev, { role: 'system', content: data.reply }]);
     } catch {
       setMessages(prev => [...prev, { role: 'system', content: "Oops! I'm having trouble connecting to Julius's brain." }]);
@@ -39,14 +39,14 @@ const AIBot = () => {
 
   return (
     <div className="bot-container">
-      {/* The Floating Button */}
+      {/* Floating Button */}
       {!isOpen && (
         <button className="bot-trigger" onClick={() => setIsOpen(true)}>
           🤖 Ask AI
         </button>
       )}
 
-      {/* The Chat Window */}
+      {/* Chat Window */}
       {isOpen && (
         <div className="bot-window">
           <div className="bot-header">
