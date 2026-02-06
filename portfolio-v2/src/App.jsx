@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import AIBot from './components/AIBot';
 import './App.css';
 
 import Navbar from './components/Navbar';
@@ -51,6 +52,7 @@ function App() {
       <GithubRepos />
       <Contact />
       <Footer />
+      <AIBot />
       {isResumeVisible && <Resume onClose={() => setIsResumeVisible(false)} />}
     </div>
   );
