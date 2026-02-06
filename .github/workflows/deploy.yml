@@ -22,7 +22,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        working-directory: ./prtfolio-v2
+        working-directory: ./portfolio-v2
         run: npm run build
 
       - name: Upload artifact
