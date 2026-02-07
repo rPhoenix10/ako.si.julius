@@ -15,14 +15,12 @@ services:
 
   # Frontend Service
   frontend:
-    image: node:20-alpine
-    working_dir: /app
+    build: ./portfolio-v2
     volumes:
       - ./portfolio-v2:/app
       - /app/node_modules
     ports:
       - "5273:5273"
-    command: npm run dev -- --host
     depends_on:
       - backend
     networks:
