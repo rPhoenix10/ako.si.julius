@@ -17,6 +17,11 @@ function App() {
   const [isNavVisible, setIsNavVisible] = useState(true);
   const lastScrollY = useRef(0);
 
+  // Ping to start backend
+  useEffect(() => {
+    fetch('https://portfolio-project.261509jz79gj.us-south.codeengine.appdomain.cloud/api/chat'); 
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;

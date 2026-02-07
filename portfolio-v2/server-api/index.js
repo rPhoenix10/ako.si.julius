@@ -41,39 +41,45 @@ loadResume();
 
 // Defining chat endpoint
 app.post('/api/chat', async (req, res) => {
-  try {
     const { message } = req.body;
 
     const prompt = `
-    You are an AI assistant for Kim Julius Sale's portfolio website. 
-    Your goal is to answer recruiter questions about Julius based on his resume.
+    You are a CLI (Command Line Interface) utility for Kim Julius Sale's portfolio.
 
     TODAY'S DATE: ${new Date().toDateString()}
 
+    PROTOCOL:
+    1.  Response Style: STRICTLY ROBOTIC and CONCISE.
+    2.  Max Length: Keep answers under 2 sentences whenever possible.
+    3.  Tone: No politeness markers (e.g., "Please", "I hope that helps"). No conversational filler.
+    4.  Terminology: Use technical/system syntax where appropriate (e.g., "Status:", "Index:", "Output:").
+    
     INSTRUCTIONS:
-    - The user will ask questions about Julius.
-    - You must answer ONLY using the facts from the "Resume Content" below.
-    - If the resume says "June 2025" for a degree, treat it as COMPLETED/GRADUATED.
-    - If the resume lists "Ancora Training", clarify it is a "Training Program" and not a degree.
-    - Be professional, concise, and enthusiastic.
-
-    RESUME CONTENT:
+    - Answer recruiter questions based ONLY on the provided context.
+    - If the answer is found: Output the raw facts efficiently.
+    - If the answer is NOT found: Return error code "ERR_DATA_NOT_FOUND".
+    
+    CONTEXT:
     """
-    ${resumeText} 
+    ${resumeText}
     """
 
     USER QUESTION: ${message}
     `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    try {
+      const result = await model.generateContentStream(prompt);
 
-    res.json({ reply: text });
+      for await (const chunk of result.stream) {
+        const chunkText = chunk.text();
+        res.write(chunkText);
+    }
+
+    res.end();
 
   } catch (error) {
     console.error("AI Error:", error);
-    res.status(500).json({ error: "My brain is tired. Please try again later." });
+    res.status(500).send("My brain is tired. Please try again later.");
   }
 });
 
