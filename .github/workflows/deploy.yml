@@ -25,7 +25,17 @@ jobs:
         working-directory: ./portfolio-v2
         run: npm install
 
-      - name: Run Test Suite
+      # TEST BACKEND
+      - name: Install Backend Dependencies
+        working-directory: ./portfolio-v2/server-api
+        run: npm ci
+
+      - name: Run Backend Tests
+        working-directory: ./portfolio-v2/server-api
+        run: npm test
+
+      # 🛡️ 2. TEST FRONTEND
+      - name: Run Frontend Tests
         working-directory: ./portfolio-v2
         run: npm test -- --watchAll=false
 
