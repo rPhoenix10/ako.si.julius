@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Backend Service
+  backend:
+    build: ./portfolio-v2/server-api
+    env_file:
+      - ./portfolio-v2/server-api/.env
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    networks:
+      - portfolio-network
+
+  # Frontend Service
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./portfolio-v2:/app
+      - /app/node_modules
+    ports:
+      - "5273:5273"
+    command: npm run dev -- --host
+    depends_on:
+      - backend
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge

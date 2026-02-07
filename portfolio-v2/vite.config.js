@@ -6,8 +6,9 @@ export default defineConfig({
   plugins: [react()],
   base: "/ako.si.julius",
   server: {
-    port: 5273,
-    open: true,
+    host: true,      // Required: Allows Docker to map the port
+    port: 5273,      // Preserves custom port
+    open: true,      // Opens browser automatically (when running locally)
     proxy: {
       '/api': {
         target: 'http://localhost:3001', // Backend server

@@ -1,0 +1,5 @@
+node_modules
+portfolio-v2/node_modules
+portfolio-v2/server-api/node_modules
+.git
+.github
