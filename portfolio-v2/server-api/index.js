@@ -43,6 +43,12 @@ loadResume();
 app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
 
+    // Validation Logic: Input Sanitization
+    // Rejects empty strings, whitespace-only strings, and non-string types.
+    if (!message || typeof message !== 'string' || message.trim() === "") {
+        return res.status(400).json({ error: "Invalid input: Message cannot be empty." });
+    }
+
     const prompt = `
     You are a CLI (Command Line Interface) utility for Kim Julius Sale's portfolio.
 
@@ -84,6 +90,15 @@ app.post('/api/chat', async (req, res) => {
 });
 
 // Start Server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server running on http://localhost:${port}`);
+// });
+
+// Start server only if not testing
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
+}
+
+export default app; // Exporting for testing purposes
