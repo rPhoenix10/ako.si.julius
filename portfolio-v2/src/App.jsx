@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AIBot from './components/AIBot';
 import './App.css';
-
 import Navbar from './components/Navbar';
 import Me from './components/Me';
 import About from './components/About';
@@ -13,13 +11,13 @@ import GithubRepos from './components/GitHubRepos';
 
 function App() {
   const [isResumeVisible, setIsResumeVisible] = useState(false);
-
   const [isNavVisible, setIsNavVisible] = useState(true);
   const lastScrollY = useRef(0);
 
   // Ping to start backend
   useEffect(() => {
-    fetch('https://portfolio-project.261509jz79gj.us-south.codeengine.appdomain.cloud/api/chat'); 
+    fetch('https://portfolio-project.261509jz79gj.us-south.codeengine.appdomain.cloud/api/chat')
+        .catch(err => console.error("Backend wake-up ping failed:", err)); 
   }, []);
 
   useEffect(() => {
@@ -42,7 +40,7 @@ function App() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [lastScrollY]);
+  }, []);
 
   const showNavbar = () => {
     setIsNavVisible(true);
@@ -51,13 +49,13 @@ function App() {
   return (
     <div id="page-wrapper">
       <Navbar onShowResume={() => setIsResumeVisible(true)} isVisible={isNavVisible} />
-      <Me onButtonClick={showNavbar} />
+      <Me onButtonClick={showNavbar} />   
       <About onButtonClick={showNavbar} />
       <Projects onButtonClick={showNavbar} />
       <GithubRepos />
       <Contact />
       <Footer />
-      <AIBot />
+
       {isResumeVisible && <Resume onClose={() => setIsResumeVisible(false)} />}
     </div>
   );

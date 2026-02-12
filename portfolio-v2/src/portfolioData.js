@@ -105,7 +105,7 @@ export const projects = [
 export const personalInfo = {
   name: 'Julius Sale',
   tagline: 
-    'Nature Lover. Code Enthusiast.|Crafting Web & App Solutions.|Junior Software Engineer.'
+    'Software Engineer.|Full-Stack. Cloud Architect.|DevOps Enthusiast.'
 };
 
 export const aboutMe = {

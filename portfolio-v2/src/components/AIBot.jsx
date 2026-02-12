@@ -10,7 +10,10 @@ const AIBot = () => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current?.scrollIntoView({ 
+            behavior: "smooth",
+            block: "nearest" 
+        });
     };
 
     useEffect(scrollToBottom, [messages]);
@@ -78,7 +81,6 @@ const AIBot = () => {
                     value={input} 
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter command..." 
-                    autoFocus
                 />
             </form>
         </div>

@@ -1,8 +1,7 @@
-/* AIBot.css */
 .terminal-container {
     width: 100%;
-    max-width: 800px;
-    margin: 2rem auto;
+    max-width: 100%;
+    margin: 0 auto;
     background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -17,6 +16,20 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid #333;
+}
+
+.terminal-input-area input {
+    background-color: rgb(0, 0, 0) !important;
+    border: none !important;
+    color: #00ff41 !important; /* Hacker Green, forced to override global styles */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    flex-grow: 1;
+    outline: none;
+}
+
+.terminal-input-area input::placeholder {
+    color: rgba(0, 255, 65, 0.4) !important; 
 }
 
 .dot {
@@ -44,6 +57,22 @@
     overflow-y: auto;
     background-color: #0c0c0c;
     color: #00ff41; /* Hacker Green */
+    scroll-behavior: smooth;
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+.terminal-window::-webkit-scrollbar {
+    width: 8px;
+}
+.terminal-window::-webkit-scrollbar-track {
+    background: #0c0c0c; 
+}
+.terminal-window::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 4px;
+}
+.terminal-window::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
 
 .line {
@@ -59,6 +88,8 @@
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* Internet Explorer/Edge */
     user-select: none;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .line.bot .prompt {
@@ -94,4 +125,11 @@
 
 @keyframes blink {
     50% { opacity: 0; }
+}
+
+/* --- Mobile Adjustment --- */
+@media screen and (max-width: 768px) {
+    .terminal-window {
+        height: 300px;
+    }
 }

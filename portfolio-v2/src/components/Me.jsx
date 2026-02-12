@@ -1,71 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import './Me.css';
-import { personalInfo, aboutMeGallery } from '../portfolioData';
+import { personalInfo } from '../portfolioData';
+import AIBot from './AIBot';
 
 const Me = ({ onButtonClick }) => {
   const [nameText, setNameText] = useState('');
   const [taglineText, setTaglineText] = useState('');
   const [typingStep, setTypingStep] = useState('name'); 
   
-  const fullSaleName = personalInfo.name
+  const fullSaleName = personalInfo.name;
   const fullTagline = personalInfo.tagline;
 
   useEffect(() => {
-    let i = 0;
+    // Type Name
     const typeName = () => {
-      if (i < fullSaleName.length) {
-        setNameText(fullSaleName.substring(0, i + 1));
-        i++;
-        setTimeout(typeName, 45);
-      } else {
-        setTypingStep('tagline');
-      }
-    };
-
-    let j = 0;
-    const typeTagline = () => {
-        if (j < fullTagline.length) {
-            setTaglineText(fullTagline.substring(0, j + 1));
-            j++;
-            setTimeout(typeTagline, 35);
+      setNameText((prev) => {
+        const i = prev.length;
+        if (i < fullSaleName.length) {
+          setTimeout(typeName, 50);
+          return fullSaleName.substring(0, i + 1);
         } else {
-            setTypingStep('done');
+          setTypingStep('tagline');
+          return prev;
         }
+      });
     };
 
-    if (typingStep === 'name') {
-        typeName();
-    } else if (typingStep === 'tagline') {
+    // Type Tagline
+    const typeTagline = () => {
+        setTaglineText((prev) => {
+            const j = prev.length;
+            if (j < fullTagline.length) {
+                setTimeout(typeTagline, 45);
+                return fullTagline.substring(0, j + 1);
+            } else {
+                setTypingStep('done');
+                return prev;
+            }
+        });
+    };
+
+    // Trigger typing based on step
+    if (typingStep === 'name' && nameText === '') {
+        setTimeout(typeName, 500); 
+    } else if (typingStep === 'tagline' && taglineText === '') {
         typeTagline();
     }
 
-  }, [typingStep, fullSaleName, fullTagline]);
+  }, [typingStep, fullSaleName, fullTagline, nameText, taglineText]);
 
   return (
-    <section id="banner" style={{ backgroundImage: `url(${aboutMeGallery[0].src})` }}>
-      <div className="inner">
-        <h2>
-          <span className="text-highlight">{nameText}</span>
-          {typingStep === 'name' && <span className="typing-cursor"></span>}
-        </h2>
-        <p>
-          <span className='text-highlight'>
-            {taglineText.split('|').map((part, index, array) => (
-              <React.Fragment key={index}>
-                {part}
-                {index < array.length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </span>
-          {(typingStep === 'tagline' || typingStep === 'done') && <span className="typing-cursor"></span>}
-        </p>
-        {typingStep === 'done' && (
-        <ul className="actions special">
-            <li><a href="#one" className="button" onClick={onButtonClick}>About Me</a></li>
-        </ul>
-      )}
+    <div className="me-container" id="me">
+      <div className="content-wrapper">
+        
+        {/* LEFT SIDE: Text & Typing Effect */}
+        <div className="intro-text">
+            <h2>
+              <span className="text-highlight">{nameText}</span>
+              {typingStep === 'name' && <span className="typing-cursor"></span>}
+            </h2>
+            
+            <p className="tagline-text">
+              <span className="text-highlight">
+                {taglineText.split('|').map((part, index, array) => (
+                  <React.Fragment key={index}>
+                    {part}
+                    {index < array.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </span>
+              {(typingStep === 'tagline' || typingStep === 'done') && <span className="typing-cursor"></span>}
+            </p>
+
+            {typingStep === 'done' && (
+            <div className="actions fade-in">
+                <a href="#one" className="button primary-btn" onClick={onButtonClick}>About Me</a>
+            </div>
+            )}
+        </div>
+
+        {/* RIGHT SIDE: The AI Terminal */}
+        <div className="terminal-wrapper">
+            <AIBot />
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 };
 

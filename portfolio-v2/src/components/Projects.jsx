@@ -37,10 +37,15 @@ const Projects = () => {
                                 <button
                                     key={index}
                                     className={`nav-thumbnail ${index === currentImageIndex ? 'active' : ''}`}
-                                    style={{ backgroundImage: `url(${imageUrl})` }}
                                     onClick={() => setCurrentImageIndex(index)}
                                     aria-label={`View image ${index + 1} of ${currentProject.title}`}
-                                />
+                                >
+                                    <img 
+                                        src={imageUrl} 
+                                        alt={`Thumbnail ${index + 1}`} 
+                                        loading="lazy" 
+                                    />
+                                </button>
                             ))}
                         </div>
                         <h2>{currentProject.title}</h2>

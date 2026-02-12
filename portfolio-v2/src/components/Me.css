@@ -1,81 +1,137 @@
-#banner {
-  height: 100vh;
-  padding: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: sticky;
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  box-shadow: 0 0.2em 0.5em 0 rgba(0, 0, 0, 0.25);
+/* Container*/
+.me-container {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px; /* Space for fixed navbar */
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent scrollbars from animations */
 }
 
-#banner .inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-  padding: 0 3% 3em 0;
+/* Layout Wrapper */
+.content-wrapper {
+    display: flex;
+    flex-direction: row; /* Side by side on Desktop */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1300px;
+    gap: 50px;
 }
 
-#banner h2 {
-  font-size: 3em;
-  line-height: 1em;
-  color: var(--light-color);
-  text-align: right;
-  margin-bottom: 0.5em;
+/* Left Side: Text Area */
+.intro-text {
+    flex: 1;
+    text-align: left;
+    z-index: 2;
+    padding-left: 20px;
 }
 
-#banner p {
-  font-size: 1.2em;
-  text-align: right;
-  margin-bottom: 2em;
+.intro-text h2 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.tagline-text {
+    font-size: 1.25rem;
+    color: #a0a0a0;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    min-height: 60px; /* Prevents layout jump while typing */
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .text-highlight {
-  background: rgba(116, 118, 122, 0.7);
-  padding: 0.2em 0.4em;
-  border-radius: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-#banner .actions.special {
-    margin-top: 1em;
-}
-
-#banner .button {
-  border-color: var(--light-color);
-  color: var(--light-color) !important;
-  font-size: 1em;
-}
-
-#banner .button:hover {
-  background-color: var(--light-color);
-  color: var(--dark-color) !important;
-}
-
+/* Typing Cursor Animation */
 .typing-cursor {
     display: inline-block;
-    width: 2px;
-    height: 1.5em;
-    background-color: var(--light-color);
-    animation: blink 0.7s infinite;
+    width: 10px;
+    height: 1em;
+    background-color: #4db5ff;
+    margin-left: 5px;
     vertical-align: middle;
+    animation: blink 0.8s infinite;
 }
 
 @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
-@media (max-width: 360px) {
-  #banner h2 {
-    font-size: 2em;
-  }
-
-  #banner p {
-    font-size: 1em;
-  }
+/* Button Styling */
+.button.primary-btn {
+    display: inline-block;
+    /* padding: 12px 30px; */
+    background-color: transparent;
+    border: 2px solid #4db5ff;
+    color: #4db5ff;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
 }
 
+.button.primary-btn:hover {
+    background-color: #4db5ff;
+    color: #000;
+    box-shadow: 0 0 15px rgba(77, 181, 255, 0.6);
+}
+
+.actions.fade-in {
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Right Side: Terminal Wrapper */
+.terminal-wrapper {
+    flex: 1;
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive Design (Mobile) */
+@media screen and (max-width: 960px) {
+    .content-wrapper {
+        flex-direction: column; /* Stack vertically */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .intro-text {
+        text-align: center;
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .intro-text h2 {
+        font-size: 2.5rem; /* Smaller font on mobile */
+    }
+
+    .tagline-text {
+        font-size: 1rem;
+    }
+
+    .terminal-wrapper {
+        width: 100%;
+        padding: 0 10px;
+    }
+}
