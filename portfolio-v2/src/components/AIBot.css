@@ -1,112 +1,94 @@
-.bot-container {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1000;
-  font-family: 'Roboto', sans-serif;
+/* AIBot.css */
+.terminal-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    border: 1px solid #333;
 }
 
-.bot-trigger {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #000;
-  color: #0f0;
-  border: 2px solid #0f0;
-  padding: 12px 24px;
-  box-shadow: 4px 4px 0px #004400;
-  font-family:'Courier New', Courier, monospace;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1000;
+.terminal-header {
+    background-color: #2d2d2d;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
 }
 
-.bot-trigger:hover {
-  background-color: #0f0;
-  color: #000;;
+.dot {
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
 }
 
-.bot-window {
-  position: fixed;
-  bottom: 80px;
-  left: 20px;
-  width: 350px;
-  height: 500px;
-  background-color: #000;
-  border: 2px solid #0f0;
-  font-family:'Courier New', Courier, monospace;
-  box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.title {
+    margin-left: 10px;
+    color: #999;
+    font-size: 0.9rem;
 }
 
-.bot-header {
-  background-color: #0f0;
-  color: #000;
-  padding: 10px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid #0f0;
+.terminal-window {
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #0c0c0c;
+    color: #00ff41; /* Hacker Green */
 }
 
-.bot-header button {
-  background: none;
-  border: none;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 1.2rem;
+.line {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
-.bot-messages {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  color: #0f0;
+.prompt {
+    color: #bd93f9; /* Dracula Purple */
+    margin-right: 10px;
+    user-select: none;
 }
 
-.message {
-  margin-bottom: 15px;
-  line-height: 1.4;
+.line.bot .prompt {
+    color: #50fa7b; /* Green for bot */
 }
 
-.message.system::before {
-  content: "SYS> ";
-  color: #0f0;
+.line.user .text {
+    color: #f1f1f1;
 }
 
-.message.user::before {
-  content: "USER> ";
-  color: #007bff;
+.terminal-input-area {
+    display: flex;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-top: 1px solid #333;
+    align-items: center;
 }
 
-.bot-input {
-  display: flex;
-  border-top: 2px solid #0f0;
-  padding: 10px;
+.terminal-input-area input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+    flex-grow: 1;
+    outline: none;
 }
 
-.bot-input input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #0f0;
-  font-family: 'Courier New', Courier, monospace;
-  outline: none;
+/* Blinking Cursor Animation */
+.cursor {
+    animation: blink 1s step-end infinite;
 }
 
-.bot-input button {
-  background: #0f0;
-  color: #000;
-  border: none;
-  padding: 5px 15px;
-  font-family: 'Courier New', Courier, monospace;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.bot-input button:hover {
-  background: #fff;
+@keyframes blink {
+    50% { opacity: 0; }
 }

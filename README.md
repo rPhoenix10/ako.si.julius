@@ -1,62 +1,78 @@
-# Julius Sale - Portfolio & AI Chatbot
+# AI-Powered Terminal Portfolio (v2)
 
-![CI/CD Quality Gate](https://github.com/rPhoenix10/ako.si.julius/actions/workflows/test-suite.yml/badge.svg)
-![Deploy Status](https://github.com/rPhoenix10/ako.si.julius/actions/workflows/deploy.yml/badge.svg)
+**"A portfolio that talks back."**
 
-A Full-Stack Portfolio featuring a Retrieval-Augmented Generation (RAG) chatbot designed to answer recruiter questions instantly using my resume as the Single Source of Truth.
+*Live Demo:* [https://rphoenix10.github.io/ako.si.julius](https://rphoenix10.github.io/ako.si.julius)
 
----
+A full-stack, conversational AI platform that simulates a terminal interface. It uses a custom-tuned LLM (Gemini 1.5 Flash) to answer recruiter questions based on my real resume data, hosted on enterprise-grade cloud infrastructure.
 
-## Engineering Standards
-This project adheres to Test-Driven Development (TDD) and CI/CD principles:
-* **Backend:** Logic coverage via Jest & Supertest (Input validation, AI mocking).
-* **Frontend:** Integration testing via React Testing Library (User flows, Accessibility).
-* **Pipeline:** Automated GitHub Actions workflow that prevents deployment on test failure.
+![Project Status](https://img.shields.io/badge/Status-Production-success)
+![Build](https://img.shields.io/github/actions/workflow/status/rPhoenix10/ako.si.julius/deploy.yml)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 ---
 
-## AI Recruiter Bot (RAG Feature)
+## Architecture
 
-### Architecture
-This feature implements a Full Stack architecture separating the frontend from the secure backend.
+This project is built as a **Distributed System** with separate frontend and backend services, containerized with Docker, and orchestrated via GitHub Actions.
 
-- **Frontend (React):** A floating chat widget (`AIBot.jsx`) that manages optimistic UI updates for a seamless user experience. It communicates with the backend via a Vite proxy to avoid CORS issues.
-- **Backend (Node.js/Express):** A dedicated API server that handles prompt engineering and secret management.
-- **AI Integration:** Uses Google Gemini Pro (via `@google/generative-ai`) to generate natural language responses.
-- **Dynamic Context Injection:**
-  - Uses `pdf-parse-fork` to read the raw PDF resume on server startup.
-  - Injects the resume text into the System Prompt dynamically for every request.
-  - Mitigates hallucinations by strictly enforcing "Resume Only" answers and injecting the current date to resolve temporal ambiguity.
+### **Tech Stack**
+* **Frontend:** React (Vite), CSS Modules (Matrix Theme)
+* **Backend:** Node.js (Express), PDF Parsing
+* **AI Model:** Google Gemini 1.5 Flash (System Prompt Engineering)
+* **DevOps:** Docker, Docker Compose, GitHub Actions (CI/CD)
+* **Cloud:** IBM Cloud (Backend API), GitHub Pages (Static Hosting)
+
+### **Key Features**
+* **Resume Injection:** The backend parses `Julius-Sale-Resume.pdf` on startup and injects it into the AI's context window.
+* **Context-Aware Persona:** The AI is prompted to act as a "CLI Utility," providing robotic, concise answers strictly based on factual data.
+* **Containerization:** Fully Dockerized development environment ensures "works on my machine" reliability.
+* **Automated CI/CD:** Every push to `main` triggers a 4-step pipeline:
+    1.  Build Docker Images
+    2.  Run Backend Integration Tests (Jest)
+    3.  Run Frontend Unit Tests (Jest/React Testing Library)
+    4.  Deploy to Production
 
 ---
 
-## How to Run Locally
+## Local Development
 
-### Option 1: Docker Compose (Recommended)
-Run the entire full-stack environment (Frontend + Backend) with a single command. This ensures environment consistency.
+### **Prerequisites**
+* Docker Desktop
+* Node.js (v18+)
+* Google Gemini API Key
+
+### **Quick Start (Docker)**
+The easiest way to run the entire stack is with Docker Compose.
 
 ```bash
-# Build and start the services
+# 1. Clone the repository
+git clone [https://github.com/rPhoenix10/ako.si.julius.git](https://github.com/rPhoenix10/ako.si.julius.git)
+cd ako.si.julius
+
+# 2. Set up environment variables
+- Create a .env file in /server-api with your key:
+- GEMINI_API_KEY=your_key_here
+
+# 3. Start the stack
 docker-compose up --build
 
-# Access the portfolio at http://localhost:5173
-
 ```
 
-### Option 2: Manual Setup
-Run the entire full-stack environment (Frontend + Backend) without Docker:
+Access the app at http://localhost:5273/ako.si.julius.
+
+## Testing
 
 ```bash
-# Start the Backend
-cd portfolio-v2/server-api
-npm install
-# Creates the API endpoint at http://localhost:3001/api/chat
-node index.js
+# Run all tests (Frontend + Backend)
+npm test
 
-# Start the Frontend
-cd portfolio-v2
-npm install
-# Proxies /api requests to port 3001
-npm run dev
-
+# Run backend integration tests only
+cd server-api && npm test
 ```
+**Backend Tests:** Verify that the API correctly handles PDF parsing and mocks the Google AI response using jest.unstable_mockModule.
+
+**Frontend Tests:** verify that the Terminal UI renders correctly and handles API states.
+
+## Contact
+**Julius Sale** - [LinkedIn](https://www.linkedin.com/in/kim-julius-sale-0722531a0/)
