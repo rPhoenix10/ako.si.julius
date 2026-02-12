@@ -24,6 +24,9 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+// Mock HTMLElement.prototype.scrollIntoView
+Element.prototype.scrollIntoView = jest.fn();
+
 // MOCK: global.fetch
 // This fixes "ReferenceError: fetch is not defined" in App.test.js
 global.fetch = jest.fn(() =>

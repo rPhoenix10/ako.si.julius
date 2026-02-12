@@ -1,4 +1,3 @@
-// Import Jest tools explicitly
 import { jest } from '@jest/globals';
 import { describe, it, expect, beforeAll } from '@jest/globals';
 
@@ -6,11 +5,9 @@ import { describe, it, expect, beforeAll } from '@jest/globals';
 jest.unstable_mockModule('@google/generative-ai', () => ({
     GoogleGenerativeAI: jest.fn().mockImplementation(() => ({
         getGenerativeModel: jest.fn().mockReturnValue({
-            generateContentStream: jest.fn().mockResolvedValue({
-                stream: {
-                    [Symbol.asyncIterator]: async function* () {
-                        yield { text: () => "I am a Test Robot. The system is functioning." };
-                    }
+            generateContent: jest.fn().mockResolvedValue({
+                response: {
+                    text: () => "I am a Test Robot. The system is functioning."
                 }
             }),
         }),
@@ -26,7 +23,7 @@ describe('Chatbot API Integration Tests', () => {
     let request;
 
     beforeAll(async () => {
-        // 3. Dynamic Import
+        // 2. Dynamic Import of Supertest and App
         const supertest = await import('supertest');
         request = supertest.default;
 
@@ -41,6 +38,10 @@ describe('Chatbot API Integration Tests', () => {
             .send({ message: "Hello, this is a test." });
 
         expect(response.statusCode).toBe(200);
+        
+        // Verify the JSON structure matches our new format
+        expect(response.body).toHaveProperty('reply');
+        expect(response.body.reply).toBe("I am a Test Robot. The system is functioning.");
     });
 
     // Test Case 2: Edge Case - Empty String

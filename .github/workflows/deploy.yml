@@ -21,10 +21,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        working-directory: ./portfolio-v2
-        run: npm install
-
       # TEST BACKEND
       - name: Install Backend Dependencies
         working-directory: ./portfolio-v2/server-api
@@ -33,17 +29,25 @@ jobs:
       - name: Run Backend Tests
         working-directory: ./portfolio-v2/server-api
         run: npm test
+        env:
+          CI: true
 
-      # 🛡️ 2. TEST FRONTEND
+      #  TEST FRONTEND
+      - name: Install Frontend Dependencies
+        working-directory: ./portfolio-v2
+        run: npm ci
+
       - name: Run Frontend Tests
         working-directory: ./portfolio-v2
         run: npm test -- --watchAll=false
+        env:
+          CI: true
 
       - name: Build
         working-directory: ./portfolio-v2
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload artifact (GitHub Pages)
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./portfolio-v2/dist

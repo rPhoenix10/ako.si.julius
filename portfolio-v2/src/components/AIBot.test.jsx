@@ -3,80 +3,68 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AIBot from './AIBot';
 
-// Mock global fetch to prevent actual network requests during testing
+// Mock the global fetch function
 global.fetch = jest.fn();
 
-describe('AIBot Component Integration Tests', () => {
+describe('AIBot Terminal Integration Tests', () => {
   
-  // Reset mocks before each test to ensure test isolation
   beforeEach(() => {
-    jest.clearAllMocks();
+    fetch.mockClear();
   });
 
-  test('renders the chat trigger button initially', () => {
-    render(<AIBot />);
-    const toggleButton = screen.getByText(/Ask AI/i);
-    expect(toggleButton).toBeInTheDocument();
-  });
-
-  test('opens the chat interface when trigger button is clicked', () => {
+  test('renders the terminal interface initially', () => {
     render(<AIBot />);
     
-    // Interact: Click the trigger button
-    const toggleButton = screen.getByText(/Ask AI/i);
-    fireEvent.click(toggleButton);
-
-    // Assert: Chat window header is visible
-    const chatHeader = screen.getByText(/Ask about Julius/i);
-    expect(chatHeader).toBeInTheDocument();
+    // Check for the Terminal Header
+    expect(screen.getByText(/Julius_Sale_Bot -- -bash/i)).toBeInTheDocument();
+    
+    // Check for the "System Ready" initial message
+    expect(screen.getByText(/SYSTEM_READY/i)).toBeInTheDocument();
+    
+    // Check for the Input area
+    expect(screen.getByPlaceholderText(/Enter command.../i)).toBeInTheDocument();
   });
 
   test('simulates sending a message and receiving an AI response', async () => {
-    // Mock a successful backend response
-    const mockResponse = { reply: "Confirmed. Julius is proficient in React." };
+    // Mock a successful API response
     fetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => mockResponse,
+      json: async () => ({ reply: 'STATUS: CONFIRMED. Candidate has Docker skills.' }),
     });
 
     render(<AIBot />);
 
-    // 1. Open Chat
-    fireEvent.click(screen.getByText(/Ask AI/i));
+    const inputField = screen.getByPlaceholderText(/Enter command.../i);
+    
+    // 1. User types a command
+    fireEvent.change(inputField, { target: { value: 'Does he know Docker?' } });
+    
+    // 2. User presses Enter (submits form)
+    fireEvent.submit(inputField.closest('form'));
 
-    // 2. Simulate User Typing
-    const inputField = screen.getByPlaceholderText(/Ask about skills/i);
-    fireEvent.change(inputField, { target: { value: 'What is his tech stack?' } });
+    // 3. Verify user's message appears in the terminal history
+    expect(screen.getByText('Does he know Docker?')).toBeInTheDocument();
 
-    // 3. Simulate Send Click
-    const sendButton = screen.getByText('Send');
-    fireEvent.click(sendButton);
-
-    // 4. Assert: Loading state appears
-    expect(screen.getByText(/Thinking/i)).toBeInTheDocument();
-
-    // 5. Assert: AI response appears asynchronously
+    // 4. Wait for the AI to reply (handles the async fetch + setTimeout)
     await waitFor(() => {
-      expect(screen.getByText("Confirmed. Julius is proficient in React.")).toBeInTheDocument();
+      expect(screen.getByText(/STATUS: CONFIRMED/i)).toBeInTheDocument();
     });
   });
 
   test('handles network errors gracefully', async () => {
-    // Mock a network failure
-    fetch.mockRejectedValueOnce(new Error('API Down'));
+    // Mock a failed network request
+    fetch.mockRejectedValueOnce(new Error('Network Error'));
 
     render(<AIBot />);
-    fireEvent.click(screen.getByText(/Ask AI/i));
 
-    // Send a message
-    const inputField = screen.getByPlaceholderText(/Ask about skills/i);
-    fireEvent.change(inputField, { target: { value: 'Hello?' } });
-    fireEvent.click(screen.getByText('Send'));
+    const inputField = screen.getByPlaceholderText(/Enter command.../i);
+    
+    fireEvent.change(inputField, { target: { value: 'Crash test' } });
+    fireEvent.submit(inputField.closest('form'));
 
-    // Assert: Error message is displayed to user
+    // Expect the specific error message defined in your component
     await waitFor(() => {
-      expect(screen.getByText(/trouble connecting/i)).toBeInTheDocument();
+      expect(screen.getByText(/ERR_CONNECTION_REFUSED/i)).toBeInTheDocument();
     });
   });
-
 });
