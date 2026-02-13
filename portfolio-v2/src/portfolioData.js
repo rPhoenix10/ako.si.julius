@@ -85,7 +85,7 @@ export const projects = [
         projectsImg,
         contactImg,
     ],
-    repoUrl: "https://rphoenix10.github.io/ako.si.julius",
+    repoUrl: "https://github.com/rPhoenix10/ako.si.julius",
   },
   {
     id: 3,
@@ -131,7 +131,7 @@ export const featuredRepos = [
     id: 2,
     name: "personal-website",
     description: "My personal portfolio website built with React.",
-    html_url: "https://github.com/rPhoenix10/rphoenix10.github.io"
+    html_url: "https://github.com/rPhoenix10/ako.si.julius"
   },
   {
     id: 3,

@@ -4,7 +4,7 @@ const Navbar = ({ onShowResume, isVisible }) => {
 
   return (
     <header id="header" className={!isVisible? 'hidden' : ''}>
-      <h1><a href="#banner"><span className='logo-j'>J</span><span className='logo-s'>S</span></a></h1>
+      <h1><a href="#me"><span className='logo-j'>J</span><span className='logo-s'>S</span></a></h1>
       <nav id="nav">
         <a href="#one">About</a>
         <a href="#two">Projects</a>

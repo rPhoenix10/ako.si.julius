@@ -10,17 +10,28 @@ const Contact = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({ ...prevState, [name]: value }));
+        
+        // If they start typing again after an error, hide the error message
+        if (name === 'email' && !isEmailValid) {
+            setIsEmailValid(true);
+        }
+    };
 
-        if (name === 'email') {
+    // Only validate the format when the user clicks away from the input
+    const handleBlur = (e) => {
+        if (e.target.name === 'email' && e.target.value !== '') {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            setIsEmailValid(emailRegex.test(value));
+            setIsEmailValid(emailRegex.test(e.target.value));
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isEmailValid) {
+        // Final safety check before sending
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setIsEmailValid(false);
             setStatus("Please enter a valid email address.");
             return;
         }
@@ -35,11 +46,11 @@ const Contact = () => {
             if (response.ok) {
                 setStatus("Thanks for your submission!");
                 setFormData({ name: '', email: '', message: '' });
+                setIsEmailValid(true);
             } else {
                 setStatus("Oops! There was a problem submitting your form.");
             }
         } catch {
-
             setStatus("Oops! There was a problem submitting your form.");
         }
     };
@@ -57,7 +68,16 @@ const Contact = () => {
                             <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
                         </div>
                         <div className="col-6 col-12-xsmall">
-                            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className={isEmailValid ? '' : 'invalid-input'} />
+                            <input 
+                                type="email" 
+                                name="email" 
+                                placeholder="Email" 
+                                value={formData.email} 
+                                onChange={handleChange} 
+                                onBlur={handleBlur} 
+                                required 
+                                className={isEmailValid ? '' : 'invalid-input'} 
+                            />
                             {!isEmailValid && <p className="error-message">Please enter a valid email format.</p>}
                         </div>
                         <div className="col-12">

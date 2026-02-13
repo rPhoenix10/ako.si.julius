@@ -47,7 +47,6 @@
     bottom: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
     z-index: 1;
-    
 }
 
 .image-nav {
@@ -57,7 +56,6 @@
     padding: 8px 0;
     background-color: transparent; 
     width: 100%;
-    
 }
 
 .nav-thumbnail {
@@ -117,13 +115,22 @@
     line-height: 1.6;
 }
 
-.github-link .fa-github {
+.project-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
     margin-bottom: 2em;
+}
+
+.github-link .fa-github,
+.live-link .fa-external-link-alt {
     font-size: 2.5rem;
+    color: rgb(15, 63, 134);
     transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
-.github-link:hover .fa-github {
+.github-link:hover .fa-github,
+.live-link:hover .fa-external-link-alt {
     color: var(--light-color);
     transform: scale(1.1);
 }

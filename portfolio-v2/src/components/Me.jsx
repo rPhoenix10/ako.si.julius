@@ -12,42 +12,36 @@ const Me = ({ onButtonClick }) => {
   const fullTagline = personalInfo.tagline;
 
   useEffect(() => {
-    // Type Name
-    const typeName = () => {
-      setNameText((prev) => {
-        const i = prev.length;
-        if (i < fullSaleName.length) {
-          setTimeout(typeName, 50);
-          return fullSaleName.substring(0, i + 1);
-        } else {
-          setTypingStep('tagline');
-          return prev;
-        }
-      });
-    };
+    let timeout;
 
-    // Type Tagline
-    const typeTagline = () => {
-        setTaglineText((prev) => {
-            const j = prev.length;
-            if (j < fullTagline.length) {
-                setTimeout(typeTagline, 45);
-                return fullTagline.substring(0, j + 1);
-            } else {
-                setTypingStep('done');
-                return prev;
-            }
-        });
-    };
-
-    // Trigger typing based on step
-    if (typingStep === 'name' && nameText === '') {
-        setTimeout(typeName, 500); 
-    } else if (typingStep === 'tagline' && taglineText === '') {
-        typeTagline();
+    if (typingStep === 'name') {
+      if (nameText.length < fullSaleName.length) {
+        // Type Name
+        timeout = setTimeout(() => {
+          setNameText(fullSaleName.substring(0, nameText.length + 1));
+        }, 5); 
+      } else {
+        // Pause before starting the tagline
+        timeout = setTimeout(() => setTypingStep('tagline'), 500); 
+      }
+    } 
+    else if (typingStep === 'tagline') {
+      if (taglineText.length < fullTagline.length) {
+        // Type Tagline
+        timeout = setTimeout(() => {
+          setTaglineText(fullTagline.substring(0, taglineText.length + 1));
+        }, 30);
+      } else {
+        // Finished typing
+        timeout = setTimeout(() => {
+            setTypingStep('done');
+        }, 0); 
+      }
     }
 
-  }, [typingStep, fullSaleName, fullTagline, nameText, taglineText]);
+    return () => clearTimeout(timeout);
+
+  }, [typingStep, nameText, taglineText, fullSaleName, fullTagline]);
 
   return (
     <div className="me-container" id="me">

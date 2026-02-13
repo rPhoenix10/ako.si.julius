@@ -47,7 +47,7 @@ const About = () => {
                                     onClick={() => handleSetCurrentIndex(index)}
                                     aria-label={`View image ${index + 1}: ${img.label}`}
                                 >
-                                    <img src={img.src} alt="" />
+                                    <img src={img.src} alt={`Thumbnail of ${img.label}`} />
                                 </button>
                             ))}
                         </div>

@@ -6,26 +6,45 @@ const Collapse = ({ isOpen, children, className, width = 'auto', axis = 'horizon
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    if (wrapper) {
+    const content = contentRef.current;
+    let timer;
+
+    if (wrapper && content) {
       if (isOpen) {
         if (axis === 'horizontal') {
-            wrapper.style.maxWidth = `${contentRef.current.scrollWidth}px`;
+            wrapper.style.maxWidth = `${content.scrollWidth}px`;
         } else {
-            wrapper.style.maxHeight = `${contentRef.current.scrollHeight}px`;
+            wrapper.style.maxHeight = `${content.scrollHeight}px`;
         }
+
+        timer = setTimeout(() => {
+            if (axis === 'horizontal') {
+                wrapper.style.maxWidth = width; 
+            } else {
+                wrapper.style.maxHeight = 'none';
+            }
+        }, 500);
+
       } else {
+        // 3. Animate closed
         if (axis === 'horizontal') {
+            wrapper.style.maxWidth = `${wrapper.scrollWidth}px`;
+            void wrapper.offsetHeight;
             wrapper.style.maxWidth = '0px';
         } else {
+            wrapper.style.maxHeight = `${wrapper.scrollHeight}px`;
+            void wrapper.offsetHeight;
             wrapper.style.maxHeight = '0px';
         }
       }
     }
-  }, [isOpen, axis]);
+
+    return () => clearTimeout(timer); 
+  }, [isOpen, axis, width]); 
 
   return (
     <div ref={wrapperRef} className={`collapsible-wrapper ${className}`}>
-      <div ref={contentRef} className="collapsible-content" style={{ width }}>
+      <div ref={contentRef} className="collapsible-content" style={{ width, maxWidth: '100%' }}>
         {children}
       </div>
     </div>
@@ -33,4 +52,3 @@ const Collapse = ({ isOpen, children, className, width = 'auto', axis = 'horizon
 };
 
 export default Collapse;
-

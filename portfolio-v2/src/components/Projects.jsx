@@ -50,15 +50,31 @@ const Projects = () => {
                         </div>
                         <h2>{currentProject.title}</h2>
                         <p>{currentProject.description}</p>
-                        <a 
-                            href={currentProject.repoUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            aria-label="GitHub Repository" 
-                            className="github-link"
-                        >
-                            <i className="fab fa-github"></i>
-                        </a>
+                        <div className="project-links">
+                            {currentProject.repoUrl && (
+                                <a 
+                                    href={currentProject.repoUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    aria-label="GitHub Repository" 
+                                    className="github-link"
+                                >
+                                    <i className="fab fa-github"></i>
+                                </a>
+                            )}
+                            
+                            {currentProject.liveUrl && currentProject.liveUrl !== "#" && (
+                                <a 
+                                    href={currentProject.liveUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    aria-label="Live Website" 
+                                    className="live-link"
+                                >
+                                    <i className="fas fa-external-link-alt"></i>
+                                </a>
+                            )}
+                        </div>
                     </div>
                 </div>
 
